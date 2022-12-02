@@ -4,7 +4,7 @@ const settings = {
   dimensions: [1080, 1080],
 };
 
-const sketch = () => {
+const sketch = ({width, height}) => {
   const cols = 12;
   const rows = 6;
   const numCells = cols * rows;
@@ -22,15 +22,13 @@ const sketch = () => {
 
   let x, y;
 
-  /*
   for (let i = 0; i < numCells; i++){
     x = (i % cols) * cw;
-    y = Math.Floor(i / cols) * ch;
+    y = Math.floor(i / cols) * ch;
 
     points.push(new Point({x,y}));
   }
-  */
-
+  
   return ({ context, width, height }) => {
     context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
@@ -38,12 +36,10 @@ const sketch = () => {
     context.save();
     context.translate(mx,my);
 
-    /*
     points.forEach(point => {
       point.draw(context);
     });
 
-    */
     context.restore();
   };
 };
@@ -62,7 +58,7 @@ class Point {
     context.fillStyle = `darkorange`;
 
     context.beginPath();
-    context.arc(0,0,10,0 Math.PI *2);
+    context.arc(0,0,10,0, Math.PI *2);
     context.fill();
 
     context.restore();
