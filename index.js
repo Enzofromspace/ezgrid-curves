@@ -32,8 +32,19 @@ const sketch = () => {
   */
 
   return ({ context, width, height }) => {
-    context.fillStyle = 'white';
+    context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
+
+    context.save();
+    context.translate(mx,my);
+
+    /*
+    points.forEach(point => {
+      point.draw(context);
+    });
+
+    */
+    context.restore();
   };
 };
 
