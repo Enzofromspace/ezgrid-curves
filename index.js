@@ -1,4 +1,5 @@
 const canvasSketch = require('canvas-sketch');
+const random = require('canvas-sketch-util/random');
 
 const settings = {
   dimensions: [1080, 1080],
@@ -20,11 +21,17 @@ const sketch = ({width, height}) => {
   //an array to store the points we create in for loop
   const points = [];
 
-  let x, y;
+  let x, y, n;
+  let frequency = 1;
+  let amplitude = 90;
 
   for (let i = 0; i < numCells; i++){
     x = (i % cols) * cw;
     y = Math.floor(i / cols) * ch;
+
+    n = random.noise2D(x,y, frequency, amplitude);
+    x +- n;
+    y +- n;
 
     points.push(new Point({x,y}));
   }
@@ -39,7 +46,7 @@ const sketch = ({width, height}) => {
     context.strokeStyle = 'white';
     context.lineWidth = 4;
     //draw lines
-    /*
+    
     for (let r = 0; r < rows; r++) {
       context.beginPath();
 
@@ -51,7 +58,7 @@ const sketch = ({width, height}) => {
       }
       context.stroke();
     }
-    */
+    
     //draw point
     points.forEach(point => {
       point.draw(context);
