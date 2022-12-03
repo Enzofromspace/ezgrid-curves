@@ -1,6 +1,7 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
 const math = require('canvas-sketch-util/math');
+const colormap = require('colormap');
 
 const settings = {
   dimensions: [1080, 1080],
@@ -22,9 +23,14 @@ const sketch = ({width, height}) => {
   //an array to store the points we create in for loop
   const points = [];
 
-  let x, y, n, lineWidth;
+  let x, y, n, lineWidth, color;
   let frequency = 0.002;
   let amplitude = 90;
+
+  const colors = colormap({
+    colormap = 'magma',
+    nshades = amplitude,
+  });
 
   for (let i = 0; i < numCells; i++){
     x = (i % cols) * cw;
@@ -36,7 +42,9 @@ const sketch = ({width, height}) => {
 
     lineWidth = math.mapRange(n, -amplitude, amplitude, 2, 20);
 
-    points.push(new Point({x,y,lineWidth}));
+    color = colors[Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))];
+
+    points.push(new Point({x,y,lineWidth, color }));
   }
   
   return ({ context, width, height }) => {
@@ -69,6 +77,7 @@ const sketch = ({width, height}) => {
         
         context.beginPath();
         context.lineWidth = curr.lineWidth;
+        context.strokeStyle = curr.color;
         
         context.moveTo(lastx, lasty);
         context.quadraticCurveTo(curr.x, curr.y, mx, my);
@@ -93,10 +102,11 @@ const sketch = ({width, height}) => {
 canvasSketch(sketch, settings);
 
 class Point {
-  constructor({x, y, lineWidth}){
+  constructor({x, y, lineWidth, color }){
     this.x = x;
     this.y = y;
     this.lineWidth = lineWidth;
+    this.color = color;
   }
 
   draw(context){
