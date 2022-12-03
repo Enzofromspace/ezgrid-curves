@@ -45,6 +45,8 @@ const sketch = ({width, height}) => {
     context.translate(cw * 0.5, ch * 0.5);
     context.strokeStyle = 'white';
     context.lineWidth = 4;
+
+    let lastx, lasty;
     //draw lines
     /*
     for (let r = 0; r < rows; r++) {
@@ -58,9 +60,13 @@ const sketch = ({width, height}) => {
         
         context.beginPath();
         
+        context.moveTo(lastx, lasty);
         context.quadracticCurveTo(curr.x, curr.y, mx, my);
         
         context.stroke();
+
+        lastx = mx;
+        lasty = my;
      
       }
       */
