@@ -40,7 +40,7 @@ const sketch = ({width, height}) => {
     x += n;
     y += n;
 
-    lineWidth = math.mapRange(n, -amplitude, amplitude, 2, 20);
+    lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
 
     color = colors[Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))];
 
@@ -84,8 +84,8 @@ const sketch = ({width, height}) => {
         
         context.stroke();
 
-        lastx = mx;
-        lasty = my;
+        lastx = mx - c / cols * 5;
+        lasty = my - r / rows * 8;
       }
       
     }
