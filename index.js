@@ -9,7 +9,7 @@ const settings = {
 
 const sketch = ({width, height}) => {
   const cols = 12;
-  const rows = 6;
+  const rows = 48;
   const numCells = cols * rows;
   //grid begins
   const gw = width * 0.8;
