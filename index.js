@@ -1,5 +1,6 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
+const math = require('canvas-sketch-util/math');
 
 const settings = {
   dimensions: [1080, 1080],
@@ -21,7 +22,7 @@ const sketch = ({width, height}) => {
   //an array to store the points we create in for loop
   const points = [];
 
-  let x, y, n;
+  let x, y, n, lineWidth;
   let frequency = 0.002;
   let amplitude = 90;
 
@@ -33,7 +34,9 @@ const sketch = ({width, height}) => {
     x += n;
     y += n;
 
-    points.push(new Point({x,y}));
+    lineWidth = math.mapRange(n, -amplitude, amplitude, 2, 20);
+
+    points.push(new Point({x,y,lineWidth}));
   }
   
   return ({ context, width, height }) => {
@@ -41,40 +44,46 @@ const sketch = ({width, height}) => {
     context.fillRect(0, 0, width, height);
 
     context.save();
-    context.translate(mx,my);
+    context.translate(mx, my);
     context.translate(cw * 0.5, ch * 0.5);
     context.strokeStyle = 'white';
     context.lineWidth = 4;
 
     let lastx, lasty;
     //draw lines
-    /*
+    
     for (let r = 0; r < rows; r++) {
       
-      for (let c = 0; c < cols; c++) {
+      for (let c = 0; c < cols - 1; c++) {
         const curr = points[r * cols + c + 0];
         const next = points[r * cols + c + 1];
         
         const mx = curr.x + (next.x - curr.x) * 0.5;
         const my = curr.y + (next.y - curr.y) * 0.5;
+
+        
+        if (!c) {
+          lastx = curr.x;
+          lasty = curr.y;
+        }
         
         context.beginPath();
+        context.lineWidth = curr.lineWidth;
         
         context.moveTo(lastx, lasty);
-        context.quadracticCurveTo(curr.x, curr.y, mx, my);
+        context.quadraticCurveTo(curr.x, curr.y, mx, my);
         
         context.stroke();
 
         lastx = mx;
         lasty = my;
-     
       }
-      */
+      
     }
     
     //draw point
     points.forEach(point => {
-      point.draw(context);
+     // point.draw(context);
     });
 
     context.restore();
@@ -84,9 +93,10 @@ const sketch = ({width, height}) => {
 canvasSketch(sketch, settings);
 
 class Point {
-  constructor({x,y}){
+  constructor({x, y, lineWidth}){
     this.x = x;
     this.y = y;
+    this.lineWidth = lineWidth;
   }
 
   draw(context){
