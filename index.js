@@ -28,7 +28,7 @@ const sketch = ({width, height}) => {
   let amplitude = 90;
 
   const colors = colormap({
-    colormap = 'magma',
+    colormap = 'salinity',
     nshades = amplitude,
   });
 
