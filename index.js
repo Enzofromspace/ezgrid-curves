@@ -8,8 +8,8 @@ const settings = {
 };
 
 const sketch = ({width, height}) => {
-  const cols = 12;
-  const rows = 48;
+  const cols = 69;
+  const rows = 98;
   const numCells = cols * rows;
   //grid begins
   const gw = width * 0.8;
@@ -24,11 +24,11 @@ const sketch = ({width, height}) => {
   const points = [];
 
   let x, y, n, lineWidth, color;
-  let frequency = 0.002;
-  let amplitude = 90;
+  let frequency = 0.0049;
+  let amplitude = 30
 
   let colors = colormap({
-    colormap: 'salinity',
+    colormap: 'bathymetry',
     nshades: amplitude,
   });
 
