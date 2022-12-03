@@ -46,17 +46,24 @@ const sketch = ({width, height}) => {
     context.strokeStyle = 'white';
     context.lineWidth = 4;
     //draw lines
-    
+    /*
     for (let r = 0; r < rows; r++) {
-      context.beginPath();
-
+      
       for (let c = 0; c < cols; c++) {
-        const point = points[r * cols + c];
-
-        if(!c) context.moveTo(point.x, point.y);
-        else context.lineTo(point.x, point.y);
+        const curr = points[r * cols + c + 0];
+        const next = points[r * cols + c + 1];
+        
+        const mx = curr.x + (next.x - curr.x) * 0.5;
+        const my = curr.y + (next.y - curr.y) * 0.5;
+        
+        context.beginPath();
+        
+        context.quadracticCurveTo(curr.x, curr.y, mx, my);
+        
+        context.stroke();
+     
       }
-      context.stroke();
+      */
     }
     
     //draw point
