@@ -27,9 +27,9 @@ const sketch = ({width, height}) => {
   let frequency = 0.002;
   let amplitude = 90;
 
-  const colors = colormap({
-    colormap = 'salinity',
-    nshades = amplitude,
+  let colors = colormap({
+    colormap: 'salinity',
+    nshades: amplitude,
   });
 
   for (let i = 0; i < numCells; i++){
