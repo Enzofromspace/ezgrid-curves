@@ -27,7 +27,7 @@ const sketch = ({width, height}) => {
   let x, y, n, lineWidth, color;
   let frequency = 0.0049;
   let amplitude = 30
-
+  //setup params for color map utility called at line 4
   let colors = colormap({
     colormap: 'bathymetry',
     nshades: amplitude,
